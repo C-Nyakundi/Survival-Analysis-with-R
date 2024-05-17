@@ -1,0 +1,204 @@
+## ------------------------------MODEL OUT INTERPRETATION ------------------------------
+
+## *------------------------------Model 1------------------------------*
+ summary(km_fit, times = c(1:7, 30, 60, 90*(1:10)))
+Call: survfit(formula = Surv(fu_time, death) ~ 1)
+
+ time n.risk n.event survival std.err lower 95% CI upper 95% CI
+    1    992      12    0.988 0.00346        0.981        0.995
+    2    973       7    0.981 0.00435        0.972        0.989
+    3    963       5    0.976 0.00489        0.966        0.985
+    4    954       6    0.970 0.00546        0.959        0.980
+    5    945       5    0.964 0.00590        0.953        0.976
+    6    938       1    0.963 0.00598        0.952        0.975
+    7    933       1    0.962 0.00606        0.951        0.974
+   30    865      39    0.921 0.00865        0.905        0.939
+   60    809      28    0.891 0.01010        0.871        0.911
+   90    770      24    0.864 0.01117        0.843        0.887
+  180    698      43    0.815 0.01282        0.790        0.841
+  270    653      24    0.787 0.01363        0.760        0.814
+  360    619      21    0.761 0.01428        0.733        0.789
+  450    525      44    0.705 0.01554        0.675        0.736
+  540    429      47    0.639 0.01681        0.607        0.673
+  630    362      32    0.589 0.01765        0.556        0.625
+  720    266      43    0.514 0.01876        0.479        0.552
+  810    190      31    0.448 0.01979        0.411        0.488
+  900    126      26    0.378 0.02098        0.339        0.421
+  
+## *------------------------------Interpretation------------------------------*
+**Whereas all but about 1% make it past the first day, at 900 days after a first emergency admission for heart failure, the probability of surviving is just 38%**
+
+
+## *------------------------------Model 2 (Splitting by gender) -----------------------------*
+
+Call: survfit(formula = Surv(fu_time, death) ~ gender)
+
+                gender=1 
+ time n.risk n.event survival std.err lower 95% CI upper 95% CI
+    1    542       7    0.987 0.00482        0.978        0.997
+    2    528       4    0.980 0.00606        0.968        0.992
+    3    522       3    0.974 0.00685        0.961        0.988
+    4    516       4    0.966 0.00776        0.951        0.982
+    5    509       3    0.961 0.00839        0.945        0.977
+    6    504       0    0.961 0.00839        0.945        0.977
+    7    502       1    0.959 0.00859        0.942        0.976
+   30    464      19    0.922 0.01174        0.899        0.945
+   60    430      17    0.887 0.01399        0.860        0.915
+   90    409      12    0.862 0.01534        0.833        0.893
+  180    371      28    0.802 0.01796        0.768        0.838
+  270    352      10    0.781 0.01876        0.745        0.818
+  360    333      11    0.756 0.01959        0.718        0.795
+  450    286      24    0.700 0.02121        0.659        0.743
+  540    236      27    0.631 0.02289        0.588        0.678
+  630    197      18    0.581 0.02391        0.536        0.630
+  720    146      16    0.530 0.02504        0.483        0.581
+  810    109      16    0.467 0.02654        0.418        0.522
+  900     75      16    0.391 0.02832        0.339        0.450
+
+                gender=2 
+ time n.risk n.event survival std.err lower 95% CI upper 95% CI
+    1    450       5    0.989 0.00493        0.979        0.999
+    2    445       3    0.982 0.00622        0.970        0.995
+    3    441       2    0.978 0.00694        0.964        0.991
+    4    438       2    0.973 0.00760        0.959        0.988
+    5    436       2    0.969 0.00819        0.953        0.985
+    6    434       1    0.967 0.00847        0.950        0.983
+    7    431       0    0.967 0.00847        0.950        0.983
+   30    401      20    0.921 0.01281        0.896        0.947
+   60    379      11    0.895 0.01460        0.867        0.925
+   90    361      12    0.867 0.01629        0.836        0.899
+  180    327      15    0.830 0.01821        0.795        0.866
+  270    301      14    0.794 0.01981        0.756        0.833
+  360    286      10    0.767 0.02086        0.727        0.809
+  450    239      20    0.711 0.02283        0.667        0.757
+  540    193      20    0.648 0.02474        0.601        0.698
+  630    165      14    0.599 0.02615        0.549        0.652
+  720    120      27    0.497 0.02814        0.444        0.555
+  810     81      15    0.425 0.02960        0.371        0.487
+  900     51      10    0.363 0.03121        0.307        0.430
+## *------------------------------Interpretation------------------------------*
+he analysis aims to estimate the survival probabilities over time for two different gender groups (presumably male and female). The results show the number of individuals at risk (n.risk), the number of events (deaths) that occurred (n.event), and the survival probabilities (survival) at various time points. Additionally, the standard error of the survival probability (std.err), as well as the lower and upper bounds of the 95% confidence interval (lower 95% CI and upper 95% CI), are provided.
+
+Interpretation for Each Gender Group
+Gender 1
+Initial Survival (time = 1):
+
+At time 1, there were 542 individuals at risk.
+7 events (deaths) occurred.
+The survival probability at this time is 0.987 (98.7%).
+The standard error is 0.00482.
+The 95% confidence interval for the survival probability is [0.978, 0.997].
+Midpoint (time = 180):
+
+At time 180, there were 371 individuals at risk.
+28 events occurred.
+The survival probability at this time is 0.802 (80.2%).
+The standard error is 0.01796.
+The 95% confidence interval for the survival probability is [0.768, 0.838].
+Later Time (time = 900):
+
+At time 900, there were 75 individuals at risk.
+16 events occurred.
+The survival probability at this time is 0.391 (39.1%).
+The standard error is 0.02832.
+The 95% confidence interval for the survival probability is [0.339, 0.450].
+Gender 2
+Initial Survival (time = 1):
+
+At time 1, there were 450 individuals at risk.
+5 events (deaths) occurred.
+The survival probability at this time is 0.989 (98.9%).
+The standard error is 0.00493.
+The 95% confidence interval for the survival probability is [0.979, 0.999].
+Midpoint (time = 180):
+
+At time 180, there were 327 individuals at risk.
+15 events occurred.
+The survival probability at this time is 0.830 (83.0%).
+The standard error is 0.01821.
+The 95% confidence interval for the survival probability is [0.795, 0.866].
+Later Time (time = 900):
+
+At time 900, there were 51 individuals at risk.
+10 events occurred.
+The survival probability at this time is 0.363 (36.3%).
+The standard error is 0.03121.
+The 95% confidence interval for the survival probability is [0.307, 0.430].
+
+**Key Insights**
+Survival Probability Over Time:
+
+1. For both gender groups, the survival probability decreases over time, which is expected in most survival analyses.
+Comparison Between Genders:
+
+Initially, gender 1 has a slightly lower survival probability compared to gender 2 (0.987 vs. 0.989 at time 1).
+Over time, the difference in survival probability remains relatively small, but gender 2 consistently shows a slightly higher survival probability compared to gender 1.
+By time 900, both genders have significantly lower survival probabilities, with gender 1 at 39.1% and gender 2 at 36.3%.
+Confidence Intervals:
+
+The confidence intervals provide a range within which the true survival probability is likely to fall. Narrower intervals indicate more precise estimates.
+Over time, the confidence intervals widen, reflecting increased uncertainty in survival probability estimates as the number of individuals at risk decreases.
+
+## **Comparing the survival by gender, using a log rank test**
+
+> survdiff(Surv(fu_time, death)~gender, rho = 0)
+Call:
+survdiff(formula = Surv(fu_time, death) ~ gender, rho = 0)
+
+           N Observed Expected (O-E)^2/E (O-E)^2/V
+gender=1 548      268      271    0.0365     0.082
+gender=2 452      224      221    0.0448     0.082
+
+ Chisq= 0.1  on 1 degrees of freedom, p= 0.8
+## *------------------------------Interpretation------------------------------*
+
+The provided output is from a log-rank test, which is used to compare the survival distributions of two or more groups. Here, the survival distributions of two gender groups are being compared. Below is a detailed interpretation of the output:
+
+### Overall Interpretation
+The log-rank test assesses whether there is a statistically significant difference in the survival distributions between the two gender groups. The test compares the observed number of events (deaths) to the expected number of events under the null hypothesis (that there is no difference in survival between the groups).
+
+### Output Breakdown
+
+- **N (Number of Individuals)**:
+  - `gender=1`: 548 individuals
+  - `gender=2`: 452 individuals
+
+- **Observed Events (Observed)**:
+  - `gender=1`: 268 events (deaths)
+  - `gender=2`: 224 events (deaths)
+
+- **Expected Events (Expected)**:
+  - `gender=1`: 271 events (deaths expected under the null hypothesis)
+  - `gender=2`: 221 events (deaths expected under the null hypothesis)
+
+- **(O-E)^2/E and (O-E)^2/V**:
+  - These are test statistics used in the calculation of the chi-squared test.
+  - `(O-E)^2/E` for gender 1: 0.0365
+  - `(O-E)^2/E` for gender 2: 0.0448
+  - `(O-E)^2/V` for both genders: 0.082
+
+- **Chi-Squared Test Statistic (Chisq)**:
+  - The chi-squared test statistic is 0.1.
+
+- **Degrees of Freedom**:
+  - The degrees of freedom for this test is 1.
+
+- **p-value**:
+  - The p-value for the test is 0.8.
+
+### Key Insights
+
+1. **Chi-Squared Test Statistic**:
+   - The chi-squared test statistic is very small (0.1), indicating that the observed and expected numbers of events are very close to each other, suggesting little difference in survival between the two gender groups.
+
+2. **p-value**:
+   - The p-value is 0.8, which is much higher than the common significance level of 0.05.
+   - A high p-value indicates that there is no statistically significant difference in survival between the two gender groups.
+
+3. **Conclusion**:
+   - Since the p-value is greater than 0.05, we fail to reject the null hypothesis.
+   - This means that there is no significant evidence to suggest that the survival distributions of the two gender groups are different.
+
+### Summary
+
+The log-rank test results indicate that there is no significant difference in the survival distributions between the two gender groups. Both groups have survival distributions that are statistically similar, as evidenced by the high p-value (0.8) and the low chi-squared test statistic (0.1). Therefore, gender does not appear to be a significant factor in the survival times within this dataset.
