@@ -61,3 +61,39 @@ summary(km_gender_fit, times = c(1:7, 30, 60, 90*(1:10)))
 
 ## Comparing the survival by gender, using a log rank test 
 survdiff(Surv(fu_time, death)~gender, rho = 0)
+
+
+
+# Comparing survival by broad age group: those aged 65 and above versus those aged under 65. 
+
+## Categorizing age 
+table(g$age)
+
+## Creating a new variables 
+g$age_cat <- NA
+
+g$age_cat[g$age<=65]=1 #Those below or equal to 65 years 
+g$age_cat[g$age>65] = 0 #Those above 65 years
+g$age_cat = factor(g$age_cat, levels = c(1,0), labels = c("</= 65 Years", "> 65 Years"))
+table(g$age_cat)
+
+
+## *------------------------------Model 3------------------------------*
+## Extracting vars (age category) from the dataset
+age_cat <- as.factor(g[, "age_cat"])
+
+# Splitting by age category 
+km_age_cat <-survfit(Surv(fu_time, death)~ age_cat)
+
+# Plotting the model
+plot(km_age_cat)
+
+# Summary of the model 
+summary(km_age_cat, times = c(1:7, 30, 60, 90*(1:10))) 
+
+
+## Comparing the survival by age_cat, using a log rank test 
+survdiff(Surv(fu_time, death)~age_cat, rho = 0)
+
+
+
